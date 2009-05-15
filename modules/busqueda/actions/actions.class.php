@@ -146,6 +146,7 @@ class busquedaActions extends sfActions
 				$busqueda->setTexto($textolimpio);
 				$busqueda->setTextoTsv(ObjConcretoPeer::generaTsv($textolimpio));
 				$busqueda->save();
+				LogInsert::doBitacora($this->getUser()->getAttribute('nombrecompleto'), $this->getUser()->getAttribute('usr_ip'));
 				$idbusqueda = $busqueda->getIdObjConcreto();
 			}else{
 				$idbusqueda = $this->traeIddeBusqueda($textolimpio);

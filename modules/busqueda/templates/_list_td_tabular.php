@@ -4,17 +4,23 @@
 ?>
 <td>
 <div class="post">
+				<?php if($obj_concreto->getIdTipoObj()== 1){?>
 				<h2 class="title"><?php echo $obj_concreto->getNombreObj() ?></h2>
 				<div class="entry">
 					<?php echo $obj_concreto->getDescripcion() ?>
 					<?php $value = ObjConcretoPeer::resaltaContenido($obj_concreto->getIdObjConcreto())?>
 					<?php echo $value;?>
 				</div>
-				<?php if($obj_concreto->getIdTipoObj()== 1){?>
 				<p class="meta"><small>Subido por: <?php echo UsuarioPeer::getNombreDeUsuario($obj_concreto->getIdUsuario())?> | Tipo: Archivo |<?php //deberia colocar el indicador de número de comentarios?> Comentarios | <?php echo link_to('Ver más', 'archivo/index?archivoid='.$obj_concreto->getIdObjConcreto())?> </small></p>
 				<?php }else{?>
 					<?php if($obj_concreto->getIdTipoObj()== 2){?>
-						<p class="meta"><small>Comentado Por: <?php echo UsuarioPeer::getNombreDeUsuario($obj_concreto->getIdUsuario())?> | Tipo : Comentario |<?php //deberia colocar el indicador de número de comentarios?> Comentarios | <?php echo link_to('Ver más', 'archivo/index?archivoid='.ObjConcretoPeer::getIdArchivoDeComentario($obj_concreto->getIdObjConcreto()))?> </small></p>
+						<h2 class="title"><?php echo UsuarioPeer::getNombreDeUsuario($obj_concreto->getIdUsuario()).' dice: ' ?></h2>
+						<div class="entry">
+							<?php echo $obj_concreto->getDescripcion() ?>
+							<?php $value = ObjConcretoPeer::resaltaContenido($obj_concreto->getIdObjConcreto())?>
+							<?php echo $value;?>
+						</div>
+						<p class="meta"><small>Comentado Por: <?php echo UsuarioPeer::getNombreDeUsuario($obj_concreto->getIdUsuario())?> | Tipo : Comentario | <?php echo ObjConcretoPeer::getNroComentarios(ObjConcretoPeer::getIdArchivoDeComentario($obj_concreto->getIdObjConcreto()))?> Comentarios del archivo | <?php echo link_to('Ver más', 'archivo/index?archivoid='.ObjConcretoPeer::getIdArchivoDeComentario($obj_concreto->getIdObjConcreto()))?> </small></p>
 					<? }else{ ?>
 					<?php } ?>
 				<? }?>

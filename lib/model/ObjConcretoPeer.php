@@ -109,6 +109,27 @@ class ObjConcretoPeer extends BaseObjConcretoPeer
 		}
 		return $resultado;
 	}
+	
+	public static function getNroComentarios($idarchivo){
+		$resultado = false;
+		$criteria = new Criteria();
+		//primero sacamos los ids de los comentarios relacionados con el archivo
+		$criteria->add(RelacionesObjConcretosPeer::ID_TIPORELACION, 1);
+		$criteria->add(RelacionesObjConcretosPeer::OBJ_ID_OBJ_CONCRETO, $idarchivo);
+		$comentariosrelacionados = RelacionesObjConcretosPeer::doSelect($criteria);
+		if($comentariosrelacionados){
+			$ids = array();
+			foreach ($comentariosrelacionados as $comentariorel){
+				$ids[] = $comentariorel->getIdObjConcreto();
+			}
+			//ahora con esos ids sacamos los obj concretos, es decir los comentarios en si mismo
+			$criteria2 = new Criteria();
+			$criteria2->add(ObjConcretoPeer::ID_OBJ_CONCRETO, $ids, Criteria::IN);
+			$resultado = ObjConcretoPeer::doCount($criteria2);
+		}
+		return $resultado;
+	}
+	
 	public static function getIdsComentariosPermitidos($idsarchivos){
 		if($idsarchivos){
 			$ids = array();
