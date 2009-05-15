@@ -470,7 +470,7 @@ class folderActions extends sfActions
   }
   private function existeThumbnail($tipofile){
   	$result = false;
-  	$a = array('bin','doc','fla','flv','fla','html','iso','mp3','mpeg','mpg','nfo','otro','ppt','rar','swf','torrent','txt','wma','xls','zip','pdf','jpg','jpeg','png','bmp');
+  	$a = array('bin','doc','fla','flv','fla','html','iso','mp3','mpeg','mpg','nfo','otro','ppt','rar','swf','torrent','txt','wma','xls','zip','pdf','jpg','jpeg','png','bmp', 'odf', 'odg', 'ods', 'odt', 'oobase');
   	foreach ($a as $tipo) {
   		if($tipo == $tipofile){
   			$result=true;
