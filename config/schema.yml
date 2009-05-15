@@ -1,0 +1,624 @@
+---
+propel: 
+  _attributes: { package: plugins.memiFolderPlugin.lib.model }
+  folder: 
+    id_usuario: 
+      type: INTEGER
+      required: true
+      foreignTable: usuario
+      foreignReference: id_usuario
+      onDelete: RESTRICT
+      onUpdate: RESTRICT
+    id_folder: 
+      type: INTEGER
+      required: true
+      primaryKey: true
+      autoIncrement: true
+      sequence: folder_id_form_seq
+    fol_id_usuario: 
+      type: INTEGER
+      foreignTable: folder
+      foreignReference: id_usuario
+      onDelete: RESTRICT
+      onUpdate: RESTRICT
+    fol_id_folder: 
+      type: INTEGER
+      foreignTable: folder
+      foreignReference: id_folder
+      onDelete: RESTRICT
+      onUpdate: RESTRICT
+    nombre_folder: 
+      type: VARCHAR
+      size: 100
+    quote: 
+      type: INTEGER
+    _indexes: 
+      rel_f_sf_fk: 
+        - fol_id_usuario
+        - fol_id_folder
+      rel_u_f_fk: 
+        - id_usuario
+    _uniques: 
+      folder_pk: 
+        - id_usuario
+        - id_folder
+  formulario: 
+    id_form: 
+      type: INTEGER
+      required: true
+      primaryKey: true
+      autoIncrement: true
+      sequence: formulario_id_form_seq
+    pagina: 
+      type: VARCHAR
+      size: 150
+    credencial: 
+      type: VARCHAR
+      size: 100
+    _uniques: 
+      formulario_pk: 
+        - id_form
+      form_name_uniq:
+        - pagina
+  grupo: 
+    id_group: 
+      type: INTEGER
+      required: true
+      primaryKey: true
+      autoIncrement: true
+      sequence: grupo_id_form_seq
+    id_rol: 
+      type: INTEGER
+      required: true
+      foreignTable: rol
+      foreignReference: id_rol
+      onDelete: RESTRICT
+      onUpdate: RESTRICT
+    nombre: 
+      type: VARCHAR
+      size: 255
+    descripcion: 
+      type: VARCHAR
+      size: 250
+    _indexes: 
+      re_g_r_fk: 
+        - id_rol
+    _uniques: 
+      grupo_pk: 
+        - id_group
+      grupo_name_uniq:
+        - nombre
+  log_delete: 
+    id_log_delete: 
+      type: INTEGER
+      required: true
+      primaryKey: true
+    user_id_9: 
+      type: VARCHAR
+      size: 200
+    fecha: 
+      type: DATE
+    hora: 
+      type: TIME
+    dato_viejo: 
+      type: VARCHAR
+    tabla: 
+      type: VARCHAR
+      size: 200
+    ip_user: 
+      type: VARCHAR
+      size: 50
+    _uniques: 
+      log_delete_pk: 
+        - id_log_delete
+  log_insert: 
+    id_log_insert: 
+      type: INTEGER
+      required: true
+      primaryKey: true
+    user_id_1: 
+      type: VARCHAR
+      size: 200
+    fecha: 
+      type: DATE
+    hora: 
+      type: TIME
+    dato_nuevo: 
+      type: VARCHAR
+    tabla: 
+      type: VARCHAR
+      size: 200
+    ip_user: 
+      type: VARCHAR
+      size: 50
+    _uniques: 
+      log_insert_pk: 
+        - id_log_insert
+  log_update: 
+    id_log_update: 
+      type: INTEGER
+      required: true
+      primaryKey: true
+    user_id_5: 
+      type: VARCHAR
+      size: 200
+    fecha: 
+      type: DATE
+    hora: 
+      type: TIME
+    dato_nuevo: 
+      type: VARCHAR
+    dato_viejo: 
+      type: VARCHAR
+    tabla: 
+      type: VARCHAR
+      size: 200
+    ip_user: 
+      type: VARCHAR
+      size: 50
+    _uniques: 
+      log_update_pk: 
+        - id_log_update
+  obj_concreto: 
+    id_usuario: 
+      type: INTEGER
+      required: true
+      foreignTable: folder
+      foreignReference: id_usuario
+      onDelete: RESTRICT
+      onUpdate: RESTRICT
+    id_folder: 
+      type: INTEGER
+      required: true
+      foreignTable: folder
+      foreignReference: id_folder
+      onDelete: RESTRICT
+      onUpdate: RESTRICT
+    id_obj_concreto: 
+      type: INTEGER
+      required: true
+      primaryKey: true
+      autoIncrement: true
+      sequence: obj_concreto_id_form_seq
+    id_tipo_obj: 
+      type: INTEGER
+      required: true
+      foreignTable: tipo_obj
+      foreignReference: id_tipo_obj
+      onDelete: RESTRICT
+      onUpdate: RESTRICT
+    nombre_obj: 
+      type: VARCHAR
+      size: 255
+    is_digital: 
+      type: BOOLEAN
+    descripcion:
+      type: LONGVARCHAR
+    created_at: ~
+    descripcion: 
+      type: VARCHAR
+    texto: 
+      type: VARCHAR
+    texto_tsv: 
+      type: VARCHAR
+    _indexes: 
+      pertenece_a_un_fk: 
+        - obj_id_usuario
+        - obj_id_folder
+        - obj_id_obj_concreto
+      rel_f_o_c_fk: 
+        - id_usuario
+        - id_folder
+      rel_t_o_o_c_fk: 
+        - id_tipo_obj
+    _uniques: 
+      obj_concreto_pk: 
+        - id_usuario
+        - id_folder
+        - id_obj_concreto
+  obj_digital: 
+    id_usuario: 
+      type: INTEGER
+      required: true
+      primaryKey: true
+      foreignTable: obj_concreto
+      foreignReference: id_usuario
+      onDelete: RESTRICT
+      onUpdate: RESTRICT
+    id_folder: 
+      type: INTEGER
+      required: true
+      primaryKey: true
+      foreignTable: obj_concreto
+      foreignReference: id_folder
+      onDelete: RESTRICT
+      onUpdate: RESTRICT
+    id_obj_concreto: 
+      type: INTEGER
+      required: true
+      primaryKey: true
+      foreignTable: obj_concreto
+      foreignReference: id_obj_concreto
+      onDelete: RESTRICT
+      onUpdate: RESTRICT
+    id_tipo_file: 
+      type: INTEGER
+      required: true
+      foreignTable: tipo_file
+      foreignReference: id_tipo_file
+      onDelete: RESTRICT
+      onUpdate: RESTRICT
+    binary_data: 
+      type: BLOB
+    tamanio: 
+      type: BIGINT
+    _indexes: 
+      rel_t_o_d_fk: 
+        - id_tipo_file
+    _uniques: 
+      obj_digital_pk: 
+        - id_usuario
+        - id_folder
+        - id_obj_concreto
+  permiso: 
+    id_permiso: 
+      type: INTEGER
+      required: true
+      primaryKey: true
+      autoIncrement: true
+      sequence: permiso_id_form_seq
+    nombre_permiso: 
+      type: VARCHAR
+      size: 255
+    descripcionper: 
+      type: VARCHAR
+      size: 255
+    _uniques: 
+      permiso_pk: 
+        - id_permiso
+  permiso_grupo: 
+    id_rol: 
+      type: INTEGER
+      required: true
+      primaryKey: true
+      foreignTable: rol
+      foreignReference: id_rol
+      onDelete: RESTRICT
+      onUpdate: RESTRICT
+    id_form: 
+      type: INTEGER
+      required: true
+      primaryKey: true
+      foreignTable: formulario
+      foreignReference: id_form
+      onDelete: RESTRICT
+      onUpdate: RESTRICT
+    id_permiso: 
+      type: INTEGER
+      required: true
+      foreignTable: permiso
+      foreignReference: id_permiso
+      onDelete: RESTRICT
+      onUpdate: RESTRICT
+    _indexes: 
+      form_p_g_fk: 
+        - id_form
+      rel_r_p_g_fk: 
+        - id_rol
+      relp_p_g_fk: 
+        - id_permiso
+    _uniques: 
+      permiso_grupo_pk: 
+        - id_rol
+        - id_form
+  permiso_user: 
+    id_rol: 
+      type: INTEGER
+      required: true
+      primaryKey: true
+      foreignTable: rol
+      foreignReference: id_rol
+      onDelete: RESTRICT
+      onUpdate: RESTRICT
+    id_form: 
+      type: INTEGER
+      required: true
+      primaryKey: true
+      foreignTable: formulario
+      foreignReference: id_form
+      onDelete: RESTRICT
+      onUpdate: RESTRICT
+    _indexes: 
+      rel_f_p_u_fk: 
+        - id_form
+      rel_p_u_r_fk: 
+        - id_rol
+    _uniques: 
+      permiso_user_pk: 
+        - id_rol
+        - id_form
+  relaciones_obj_concretos: 
+    id_usuario: 
+      type: INTEGER
+      required: true
+      primaryKey: true
+      foreignTable: obj_concreto
+      foreignReference: id_usuario
+      onDelete: RESTRICT
+      onUpdate: RESTRICT
+    id_folder: 
+      type: INTEGER
+      required: true
+      primaryKey: true
+      foreignTable: obj_concreto
+      foreignReference: id_folder
+      onDelete: RESTRICT
+      onUpdate: RESTRICT
+    id_obj_concreto: 
+      type: INTEGER
+      required: true
+      primaryKey: true
+      foreignTable: obj_concreto
+      foreignReference: id_obj_concreto
+      onDelete: RESTRICT
+      onUpdate: RESTRICT
+    obj_id_usuario: 
+      type: INTEGER
+      required: true
+      primaryKey: true
+      foreignTable: obj_concreto
+      foreignReference: id_usuario
+      onDelete: RESTRICT
+      onUpdate: RESTRICT
+    obj_id_folder: 
+      type: INTEGER
+      required: true
+      primaryKey: true
+      foreignTable: obj_concreto
+      foreignReference: id_folder
+      onDelete: RESTRICT
+      onUpdate: RESTRICT
+    obj_id_obj_concreto: 
+      type: INTEGER
+      required: true
+      primaryKey: true
+      foreignTable: obj_concreto
+      foreignReference: id_obj_concreto
+      onDelete: RESTRICT
+      onUpdate: RESTRICT
+    id_tiporelacion: 
+      type: INTEGER
+      required: true
+      foreignTable: tipo_relacion
+      foreignReference: id_tiporelacion
+      onDelete: RESTRICT
+      onUpdate: RESTRICT
+    _indexes: 
+      rel2_o_c_rel_o_c_fk: 
+        - id_usuario
+        - id_folder
+        - id_obj_concreto
+      rel_o_c_rel_obj_con_fk: 
+        - obj_id_usuario
+        - obj_id_folder
+        - obj_id_obj_concreto
+      rel_t_r_r_o_c_fk: 
+        - id_tiporelacion
+    _uniques: 
+      relaciones_obj_concretos_pk: 
+        - obj_id_usuario
+        - id_usuario
+        - obj_id_folder
+        - id_folder
+        - id_obj_concreto
+        - obj_id_obj_concreto
+  rol: 
+    id_rol: 
+      type: INTEGER
+      required: true
+      primaryKey: true
+      autoIncrement: true
+      sequence: rol_id_form_seq
+    nombre: 
+      type: VARCHAR
+      size: 255
+    _uniques: 
+      rol_pk: 
+        - id_rol
+      rol_name_uniq:
+        - nombre
+  session_temp:
+    session_id:
+      type: VARCHAR
+      size: 25000
+      required: true
+      primaryKey: true
+    session_data:
+      type: VARCHAR
+      size: 255000
+    session_time:
+      type: BIGINT
+    process_id:
+      type: INTEGER
+    created_at: ~
+    id_usuario:
+      type: INTEGER
+    nombre_usuario:
+      type: VARCHAR
+      size: 255
+    ip_user:
+      type: VARCHAR
+      size: 50
+    _uniques: 
+      session_pk: 
+        - session_id  
+  shared_group:
+    id_obj_concreto: 
+      type: INTEGER
+      required: true
+      primaryKey: true
+      foreignTable: obj_concreto
+      foreignReference: id_obj_concreto
+      onDelete: RESTRICT
+      onUpdate: RESTRICT
+    id_group: 
+      type: INTEGER
+      required: true
+      primaryKey: true
+      foreignTable: grupo
+      foreignReference: id_group
+      onDelete: RESTRICT
+      onUpdate: RESTRICT 
+    id_usuario: 
+      type: INTEGER
+    id_folder: 
+      type: INTEGER
+    _indexes: 
+      rel_g_s_g_fk: 
+        - id_group
+    _uniques: 
+      shared_group_pk: 
+        - id_usuario
+        - id_folder
+        - id_obj_concreto
+  shared_usuario: 
+    id_folder: 
+      type: INTEGER
+    id_obj_concreto: 
+      type: INTEGER
+      required: true
+      primaryKey: true
+      foreignTable: obj_concreto
+      foreignReference: id_obj_concreto
+      onDelete: RESTRICT
+      onUpdate: RESTRICT
+    id_usuario: 
+      type: INTEGER
+      required: true
+      primaryKey: true
+      foreignTable: usuario
+      foreignReference: id_usuario
+      onDelete: RESTRICT
+      onUpdate: RESTRICT
+    _indexes: 
+      re_u_s_u_fk: 
+        - id_usuario
+    _uniques: 
+      shared_usuario_pk: 
+        - obj_id_usuario
+        - id_folder
+        - id_usuario
+  tipo_file: 
+    id_tipo_file: 
+      type: INTEGER
+      required: true
+      primaryKey: true
+      autoIncrement: true
+      sequence: tipo_file_id_form_seq
+    nombre_tipo: 
+      type: VARCHAR
+      size: 255
+    so: 
+      type: VARCHAR
+      size: 255
+    _uniques: 
+      tipo_file_pk: 
+        - id_tipo_file
+  tipo_obj: 
+    id_tipo_obj: 
+      type: INTEGER
+      required: true
+      primaryKey: true
+      autoIncrement: true
+      sequence: tipo_obj_id_form_seq
+    nombre_tipo_obj: 
+      type: VARCHAR
+      size: 255
+    _uniques: 
+      tipo_obj_pk: 
+        - id_tipo_obj
+  tipo_relacion: 
+    id_tiporelacion: 
+      type: INTEGER
+      required: true
+      primaryKey: true
+      autoIncrement: true
+      sequence: tipo_relacion_id_form_seq
+    nombre: 
+      type: VARCHAR
+      size: 255
+    _uniques: 
+      tipo_relacion_pk: 
+        - id_tiporelacion
+  user_group: 
+    id_usuario: 
+      type: INTEGER
+      required: true
+      primaryKey: true
+      foreignTable: usuario
+      foreignReference: id_usuario
+      onDelete: RESTRICT
+      onUpdate: RESTRICT
+    id_group: 
+      type: INTEGER
+      required: true
+      primaryKey: true
+      foreignTable: grupo
+      foreignReference: id_group
+      onDelete: RESTRICT
+      onUpdate: RESTRICT
+    _indexes: 
+      rel_u_g_g_fk: 
+        - id_group
+      rel_u_u_g_fk: 
+        - id_usuario
+    _uniques: 
+      user_group_pk: 
+        - id_usuario
+        - id_group
+  usuario: 
+    id_usuario: 
+      type: INTEGER
+      required: true
+      primaryKey: true
+      autoIncrement: true
+      sequence: usuario_id_form_seq
+    id_rol: 
+      type: INTEGER
+      required: true
+      foreignTable: rol
+      foreignReference: id_rol
+      onDelete: RESTRICT
+      onUpdate: RESTRICT
+    login:
+      type: VARCHAR
+      size: 128
+    password: 
+      type: VARCHAR
+      size: 128
+    created_at: ~
+    updated_at: ~
+    is_active: 
+      type: BOOLEAN
+    ip: 
+      type: VARCHAR
+      size: 50
+    remenber_key: 
+      type: VARCHAR
+      size: 250
+    nombre: 
+      type: VARCHAR
+      size: 255
+    apellidos: 
+      type: VARCHAR
+      size: 255
+    ultima_entrada: 
+      type: DATE
+    _indexes: 
+      relacionusuariorol_fk: 
+        - id_rol
+    _uniques: 
+      usuario_pk: 
+        - id_usuario 
+      usuario_login_uniq: 
+        - login

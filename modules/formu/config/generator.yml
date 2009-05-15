@@ -1,0 +1,28 @@
+generator:
+  class:              sfPropelAdminGenerator
+  param:
+    model_class:      Formulario
+    theme:            default
+    fields:
+      id_form: { name: id }
+      pagina: { name: pagina}
+      credencial: { name: nombre del credencial }
+    list:
+      title: Lista de paginas y credenciales 
+      display: [pagina, credencial]
+      filters: [pagina, credencial]
+      max_per_page: 10
+      object_actions:
+        _edit: ~
+        _delete: ~
+      actions:
+        _create: { name: Agregar Pagina}
+    edit:
+      title: Informacion de pagina %%pagina%%
+      display: 
+        "Edicion de accesibilidad de formulario": [ pagina, credencial]
+      actions: 
+        _list: { name: Listar }
+        _save: { name: Guardar }
+        _save_and_list: { name: Guardar y Listar}
+        _delete: { name: eliminar }

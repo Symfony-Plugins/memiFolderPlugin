@@ -1,0 +1,16 @@
+fillin:
+  enabled: true
+validators:
+  miStringValidator:
+    class: sfStringValidator
+    param:
+      min: 2
+      min_error: Este campo es demasiado corto (minimo 2 caracteres) 
+      max: 20
+      max_error: Este campo es demasiado largo (maximo 20 caracteres)
+fields:
+  rol{nombre}:
+   required: 
+     msg: El nombre no puede dejarse vacio
+   miStringValidator:
+  

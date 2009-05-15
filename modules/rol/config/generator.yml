@@ -1,0 +1,26 @@
+generator:
+  class:              sfPropelAdminGenerator
+  param:
+    model_class:      Rol
+    theme:            default
+    fields:
+      id_rol: { name: Rol }
+      nombre: { name: Nombre del Rol}
+      permiso_usuario:       { name: Credenciales de Usuario, type: admin_double_list , params: through_class=PermisoUser }
+      permiso_grupo1:       { name: Credenciales de Grupo, type: admin_double_list , params: through_class=PermisoGrupo }
+      #permiso_grupo:       { name: Permisos de Grupo, type: admin_check_list, params: through_class=PermisoGrupo }
+    list: 
+      title: Roles del sistema
+      display: [nombre]
+      max_per_page: 10
+      object_actions:
+        _edit: ~
+        _delete: ~
+      actions: 
+        _create: { name: Agregar Rol}
+    edit:
+      title: Información de Rol %%name%%
+      display: 
+        "Información principal": [ nombre ]
+        "Credenciales de Usuario": [permiso_usuario]
+        "Credenciales de Grupo": [permiso_grupo1]

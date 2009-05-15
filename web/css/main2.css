@@ -1,0 +1,146 @@
+ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,body,html,p,blockquote,fieldset,input
+{ margin: 0; padding: 0; }
+a img,:link img,:visited img { border: none; }
+
+a
+{
+  text-decoration: none;
+}
+
+a:hover
+{
+  text-decoration: underline;
+}
+
+body, td
+{
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Verdana, sans-serif;
+  font-size: 11px;
+  background-color: #fff;
+}
+
+body
+{
+  padding: 20px;
+}
+.contenedorfoto {
+   float:left;
+   width:135px;
+   height:130px;
+   margin: 5px;
+   padding: 5px;
+   background-color:#d1dae0;
+   border-right: #a5a7aa solid 1px;
+   border-left: #a5a7aa solid 1px;
+   border-top: #a5a7aa solid 1px;
+   border-bottom: #a5a7aa solid 1px;
+   text-align:center;
+}
+.contenedoropciones {
+   float:left;
+   width:280px;
+   height:100px;
+   margin: 15px;
+   padding:5px;
+   background-color:#d1dae0;
+   border-right: #a5a7aa solid 1px;
+   border-bottom: #a5a7aa solid 1px;
+   text-align:center;
+}
+.contenedoropciones2 {
+   float:left;
+   width:685px;
+   height:60px;
+   margin: 5px;
+   padding:5px;
+   background-color:#ffffff;
+   text-align:center;
+}
+.contenedoropciones3 {
+   float:left;
+   width:685px;
+   height:300px;
+   margin: 5px;
+   padding:5px;
+   background-color:#ffffff;
+   text-align:left;
+}
+.contenedoropciones3 .title-04{
+	text-align:left;
+	margin: 5px;
+   	padding:5px;
+	color: #0081C7;
+}
+/* Resultados de Busqueda*/
+.post {
+	margin-top: 10px;
+}
+
+.post .date {
+	float: left;
+	width: 79px;
+	height: 79px;
+	margin: 0;
+	margin-top: 6px;
+	margin-right: 20px;
+	padding-top: 9px;
+	background: url(/images/img01.jpg) no-repeat;
+	line-height: normal;
+	text-transform: uppercase;
+	text-align: center;
+	font-size: 11px;
+	font-weight: bold;
+	color: #000000;
+}
+
+.post .date b {
+	margin: 0;
+	padding: 0;
+	display: block;
+	margin-top: 12px;
+	font-size: 32px;
+	color: #000000;
+	
+}
+
+.post .title {
+	margin: 0;
+	padding: 2px 0 0 0;
+	margin-left: 0px;
+	padding-left: 10px;
+	font-size: 1.8em;
+	color: #0081C7;
+}
+
+.post .title h2 {
+	padding: 0;
+	margin: 0;
+}
+
+.post .hr1 {
+}
+
+.post .meta {
+	margin: 0 0 10px 10px;
+	padding: 3px 10px 5px 10px;
+	background: #83d0f4;
+	border: 2px #056e9f solid;
+	line-height:normal;
+	text-transform: uppercase;
+	color: #000000;
+}
+
+.post .meta p {
+}
+
+.post .meta a {
+	color: #042aa6;
+}
+
+.post .entry {
+	margin: 0;
+	padding: 0 0 10px 10px;
+}
+/*termino de las busquedas*/

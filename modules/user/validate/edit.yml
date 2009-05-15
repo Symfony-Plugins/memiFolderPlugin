@@ -1,0 +1,36 @@
+fillin:
+  enabled: true
+validators:
+  miStringValidator:
+    class: sfStringValidator
+    param:
+      min: 2
+      min_error: Este campo es demasiado corto (minimo 2 caracteres) 
+      max: 150
+      max_error: Este campo es demasiado largo (maximo 20 caracteres)
+fields:
+  usuario{login}:
+   required: 
+     msg: El login del usuario no puede dejarse vacio
+   miStringValidator:
+  usuario{nombre}:
+   required: 
+     msg: El nombre del usuario no puede dejarse vacio
+   miStringValidator:
+  usuario{apellidos}:
+   required: 
+     msg: Los apellidos del usuario son necesarios
+   miStringValidator:
+  usuario{remenber_key}:
+   required: 
+     msg: La clave para veriguar el password no debe dejarse vacia.
+   miStringValidator:
+  #usuario{id_rol_id}:
+  #  required:
+  #    msg: Es necesario que asocies el usuario a un rol 
+  #usuario{grupo}:
+  #  required:
+  #    msg: Es necesario que asocies el usuario a un grupo
+  usuario{password}:
+    required:
+      msg: Porfavor ingresa la contraseña

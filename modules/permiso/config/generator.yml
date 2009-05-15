@@ -1,0 +1,28 @@
+generator:
+  class:              sfPropelAdminGenerator
+  param:
+    model_class:      Permiso
+    theme:            default
+    fields:
+      id_permiso:                      { name: Id }
+      nombre_permiso:                  { name: Nombre de Permiso }
+      descripcionper:                  { name: Descripcion del Permiso, help: Sea lo más breve porfavor, type: textarea_tag, params: rich=true, tinymce_options=height: 150 }
+    list:
+      title:                           Lista de Permisos disponibles en el sistema
+      display:                         [ nombre_permiso, descripcionper]
+      filters:                         [ nombre_permiso]
+      max_per_page:                    7
+      object_actions:
+        _edit:                         ~
+        _delete:                       ~
+      actions:
+        _create:                       { name: Agregar Permiso}
+    edit:
+      title:                           Datos de Permiso %%nombre_permiso%%
+      display:
+        "Informacion importante":      [ nombre_permiso, descripcionper]
+      actions:
+        _list:                         { name: Listar}
+        _save:                         { name: Guardar}
+        _save_and_list:                { name: Guardar y Listar}
+        _delete:                       { name: Eliminar Permiso}  

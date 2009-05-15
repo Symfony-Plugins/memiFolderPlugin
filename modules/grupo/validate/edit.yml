@@ -1,0 +1,23 @@
+fillin:
+  enabled: true
+validators:
+  miStringValidator:
+    class: sfStringValidator
+    param:
+      min: 2
+      min_error: Este campo es demasiado corto (minimo 2 caracteres) 
+      max: 5000
+      max_error: Este campo es demasiado largo (maximo 20 caracteres)
+fields:
+  grupo{nombre}:
+   required: 
+     msg: El nombre de grupo no puede dejarse vacio
+   miStringValidator:
+  grupo{descripcion}:
+   required: 
+     msg: La descripción de grupo no puede dejarse vacio, comenta aunque un poco
+   miStringValidator:
+  grupo{id_rol}:
+    required:
+      msg: Debe asociar el grupo a un rol
+  

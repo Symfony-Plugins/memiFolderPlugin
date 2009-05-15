@@ -1,0 +1,30 @@
+generator:
+  class:              sfPropelAdminGenerator
+  param:
+    model_class:      Grupo
+    theme:            default
+    fields:
+      id_grupo:           { name: Id Grupo}
+      id_rol:             { name: Rol }
+      nombre:             { name: Nombre del Grupo, help: Nombre del grupo}
+      descripcion:        { name: Descripcion del Grupo, help: Descripcion corta del Grupo, type: textarea_tag, params: rich=true, tinymce_options=height: 150 }
+    list:
+      title:              Lista de Grupos
+      display:            [nombre, descripcion]
+      filters:            [nombre]
+      max_per_page:        10
+      object_actions:
+        _edit:            ~
+        _delete:          ~
+      actions:
+        _create:          { name: Agregar Grupo}
+    edit:
+      title:              Datos de Grupo %%nombre%%
+      display:
+        "Datos de Grupo": [nombre, descripcion]
+        "Rol asociado":   [id_rol]
+      actions: 
+        _list:            { name: Listar}
+        _save:            { name: Guardar}
+        _save_and_list:   { name: Guardar y Listar}
+        _delete:          { name: Borrar Grupo}  

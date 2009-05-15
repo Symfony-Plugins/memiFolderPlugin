@@ -1,0 +1,44 @@
+generator:
+  class:              sfPropelAdminGenerator
+  param:
+    model_class:      Usuario
+    theme:            default
+    fields:
+      id_usuario:                     { name: id }
+      id_rol:                         { name: rol }
+      login:                          { name: Nombre de usuario }
+      algorithm:                      { name: Algoritmo de Encriptación}
+      password:                       { name: Password , params: type=password}
+      created_at:                     { name: Fecha de creación}
+      updated_at:                     { name: Fecha de modificación}
+      ultima_entrada:                 { name: Ultima entrada }
+      is_active:                      { name: Está activo, params: type=checkbox}
+      ip:                             { name: Ip, type: hidden }
+      remenber_key:                   { name: Clave para adivinar password , type: textarea_tag, params: class=foo}
+      nombre:                         { name: Nombre del usuario }
+      apellidos:                      { name: Apellidos del usuario}
+    list: 
+      title:                           Lista de Usuarios del sistema
+      display:                         [login, rol, created_at, ultima_entrada, updated_at, remenberkey]
+      filters:                         [id_rol, login, nombre, is_active]
+      object_actions:
+        _edit:                         ~
+        _delete:                       ~
+      actions:
+        _create:                       { name: Agregar un Usuario}
+      
+    edit:
+      title:                           Información de Usuario %%login%%
+      fields:
+        grupos:                        { name: Grupos, type: admin_double_list , params: through_class=UserGroup }
+      display:
+        "Informacion Principal":       [login, password, nombre, apellidos]
+        "Información Secundaria":      [is_active, created_at]
+        "Clave de Respaldo":           [remenber_key]
+        "Rol del usuario":             [id_rol]
+        "Grupos":                      [grupos]
+      actions:  
+        _list:                         { name: Listar }
+        _save:                         { name: Guardar }
+        _save_and_list:                { name: Guardar y Listar}
+        _delete:                       { name: Eliminar Usuario}

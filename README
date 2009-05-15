@@ -1,0 +1,102 @@
+memiFolderPlugin plugin
+======================
+
+EL `memiFolderPlugin` es un plugin dedicado a manejo de contenido multimedia. No solo permite almacenar la información y organizarla (imagenes, documentos PDF, entre otros) mediante un navegador web, tambien permite almacenar estos datos en la base de datos así como indexarlos en un campo especial de postgres llamado Text Search Vector(TSV). Viene incorporado con librerias de JODconverter para convertir archivos odt, ods, odp, doc, ppt, xls, en fin todos los archivos asociados a Office en PDF, desde los cuales se convierte a texto plano(.txt) para sacar las palabras, se limpia el contenido de caracteres reservados, y se lo almacena en un campo llamado Texto en la tabla obj_concreto. Además de ello el plugin cuenta con un motor de búsquedas bastante efectivo, ya que trabaja con el motor de búsquedas de postgres, por lo cual este plugin se convierte en un manejador de información bastante completo.
+
+Capturas en Funcionamiento
+----------
+![folder.png](http://trac.symfony-project.org/attachment/wiki/memiFolderPlugin/folder.png?format=raw)
+![busquedas.png](http://trac.symfony-project.org/attachment/wiki/memiFolderPlugin/busquedas.png?format=raw)
+![resultadosbusqueda.png](http://trac.symfony-project.org/attachment/wiki/memiFolderPlugin/resultadosbusqueda.png?format=raw)
+
+Pre-Requisitos
+-------------
+
+Este plugin está desarrollado para Symfony 1.0.x y necesita de los siguientes componentes para funcionar correctamente:
+
+  * TinyMce
+  * Postgresql 8.3.x para las búsquedas y el indexado de documentos.
+  * OpenOffice con el módulo headless instalado, además de hacer funcionar openoffice como servicio, para lo cual se proporciona el archivo openoffice en code.google.com/p/ge-folder/downloads, especial para S.O Linux 
+  * pdftotext instaldo en línea de comandos(ya viene por defecto en linux)
+  * openssl
+
+Nota: El plugin fue probado en sistemas Linux, Windows, lo que asegura portabilidad. (Proximamente MAC) para lo cual se deja el tutorial de instalación en code.google.com/p/ge-folder/wiki
+
+Instalación
+------------
+
+1 - Instalar el Plugin.
+
+La forma más fácil de instalar `memiFolderPlugin` es usar el CLI de symfony:
+    
+    > php symfony plugin-install http://plugins.symfony-project.com/memiFolderPlugin
+    
+Otra forma de instalarlo es descargarse el último paquete de memifolderPlugin, desempaquetarlo en la carpeta plugins de tu proyecto y copiar lo que se tiene en la carpeta memiFolderPlugin/web/ a web/ de tu proyecto, tambien puedes descargarlo del repositorio de code.google
+ 
+2 - Construir la estructura del Modelo
+
+Genera nuevamente el modelo:
+    
+    > php symfony propel-build-model
+    
+Crea las nuevas tablas en tu base de datos. Usa el archivo data/schema.sql para ello ya que se necesita de triggers para hacer funcionar las tablas de auditoria, para configurar por primera ves, debes cargar los datos almacenados en data/datos.sql a tu base de datos Postgres. 
+
+3 - Configurar la aplicación para el uso de los módulos del plugin
+
+Habilita los siguientes módulos en el archivo `settings.yml` de tu aplicación.
+   
+    // em miproyecto/apps/backend/config/settings.yml
+    all:
+  	.actions:
+	#    default_module:         default   # Default module and action to be called when
+	#    default_action:         index     # A routing rule doesn't set it
+	#
+	    error_404_module:       error   # To be called when a 404 error is raised
+	    error_404_action:       error404  # Or when the requested URL doesn't match any route
+	#
+	    login_module:           seguridad   # To be called when a non-authenticated user
+	    login_action:           login     # Tries to access a secure page
+	#
+	    secure_module:          error   # To be called when a user doesn't have
+	    secure_action:          credencial    # The credentials required for an action
+  	.settings:
+	    enabled_modules:        [archivo, busqueda, default, error, folder, formu, grupo, permiso, rol, seguridad, user]
+Posteriormente añade los siguiente:
+    // em miproyecto/apps/backend/config/config.php
+	sfConfig::add(array(
+	  'sf_upload_dir_name'  => $sf_upload_dir_name = 'foldertemporal',
+	  'sf_upload_dir'       => sfConfig::get('sf_root_dir').DIRECTORY_SEPARATOR.sfConfig::('sf_web_dir_name').DIRECTORY_SEPARATOR.$sf_upload_dir_name));
+ para que los archivos se almacenen temporalmente en la carpeta llamada foldertemporal
+
+4 - Luego de todas estas modificaciones de debe limpiar la caché para que reconozca los cambios y las clases nuevas:
+    
+    > php symfony cc
+    
+5 - Ahora ya puedes entrar a los módulos de memiFolderPlugin:
+    
+    1. http://myproject/backend_dev.php/seguridad/login
+    2. http://myproject/backend_dev.php/folder
+    3. http://myproject/backend_dev.php/busqueda
+    
+La parte de Seguridad de la aplicación
+--------------------
+
+Los módulos user, rol, permiso, formu, grupo se encargan de la parte de administración de usuarios del ge-folder, mediante la cual se realiza el contról de accesos a los distintos espacios y control de grupos por parte del administrador, que usuario pertenece a que grupo, entre otros.
+
+La parte de Repositorio de información
+--------------------
+
+El módulo `folder` es el módulo que provee toda la funcionalidad para la subida de archivos, navegación del sistema de ficheros del usuario, donde puede almacenar todos los archivos y tambien crear carpetas, entre otras:
+
+  * Navegar a través de las carpetas como en un sistema de ficheros normal.
+  * Permite la conexión con el módulo archive donde se puede hacer comentarios, eliminar los comentarios de un archivo que pertenece a un usuario y tambien cambiar el metadatos del archivo.
+  * Acciones como subir archivo, eliminarlo, que son las básicas.
+  * Indexado del contenido del archivo para las futuras búsquedas dentro del contenido del archivo y su correspondiente resltado de resultado.
+
+Changelog
+---------
+
+Se pueden ver las modificaciones del código y su evolución en: http://code.google.com/p/ge-folder/source/list en la parte de changes.
+
+Para los bugs favor hacermelos conocer a: http://code.google.com/p/ge-folder/issues/entry
+
